@@ -8,7 +8,3 @@ create table if not exists task (
     created_at timestamp not null default now(),
     updated_at timestamp not null default now()
 );
-
-select * from task
-
-SELECT MAX(position) FROM task

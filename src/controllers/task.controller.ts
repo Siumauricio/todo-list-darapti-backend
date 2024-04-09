@@ -39,6 +39,7 @@ export const updateMultipleTasks = async (req: Request, res: Response) => {
 
   res.json({
     message: "Tareas actualizadas",
+    length: changedData.length,
     data: changedData,
   });
 };

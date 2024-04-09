@@ -48,6 +48,7 @@ router
     [
       param("id", "Es necesario que el parametro id sea definido").isInt(),
       validateChecks,
+      checkTaskExists,
     ],
     getTaskById,
   )
