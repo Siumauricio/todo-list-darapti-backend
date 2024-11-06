@@ -1,5 +1,3 @@
-CREATE DATABASE db_todo_list_app_darapti;
-
 create table if not exists task (
     id serial primary key,
     position integer not null,

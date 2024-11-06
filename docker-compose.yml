@@ -1,0 +1,42 @@
+services:
+  db_todo_list:
+    image: postgres:alpine
+    container_name: db_todo_list
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    ports:
+      - "${DB_PORT}:5432" # port used to access in the host machine
+    networks:
+      - app-network
+    volumes:
+      - todo_list_postgres_data:/var/lib/postgresql/data
+      - ./DDL.sql:/docker-entrypoint-initdb.d/DDL.sql
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: backend
+    environment:
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_HOST: db_todo_list
+      DB_PORT: 5432 # default postgres port
+      DB_NAME: ${DB_NAME}
+      PORT: ${PORT}
+    ports:
+      - "${PORT}:${PORT}"
+    depends_on:
+      - db_todo_list
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  todo_list_postgres_data:
+    driver: local
