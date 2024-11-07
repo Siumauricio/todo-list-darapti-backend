@@ -12,6 +12,4 @@ services:
       DB_PORT: 5432 # default postgres port
       DB_NAME: ${DB_NAME}
       PORT: 4000
-    ports:
-      - "${PORT}:${PORT}"
 
